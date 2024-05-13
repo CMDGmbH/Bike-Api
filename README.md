@@ -1,4 +1,4 @@
-# Server der Schnittstelle für Fahrradmobilitätsdaten der Connected Mobility Düsseldorf GmbH
+# Schnittstelle für Fahrradmobilitätsdaten der Connected Mobility Düsseldorf GmbH
 
 ## Beschreibung 
 
