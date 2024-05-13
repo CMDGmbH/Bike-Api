@@ -40,9 +40,22 @@ oder sie obsolet sind, da der Service 24/7 verfügbar ist.
 | `/api/cmd-bike-parking/v1/de/stations` | Informationen über die Stationen |
 | `/api/cmd-bike-parking/v1/de/station_status` | Status der Stationen |
 
-Genaurere Informationen zu den Endpunkten finden sich im Ordner `api`.
+Genaurere Informationen zu den Endpunkten finden sich in der 
+[Schema-Definition](https://github.com/CMDGmbH/Bike-Api/tree/main/api/schema)
+der API.
 
 ## Authentifizierung
 
 Die Authentifizierung erfolgt über JWT-Token. Das Token wird im Header
 `Authorization` mit dem Wert `Bearer + Token` übergeben.
+
+```bash
+curl -X 'GET' \
+    'https://api.cmd.nrw/gbfs/cmd-cargo/v2/de/system_information' \
+    -H 'Authorization: Bearer <token>'
+```
+```bash
+curl -X 'GET' \
+    'https://api.cmd.nrw/api/cmd-bike-parking/v1/de/system' \
+    -H 'Authorization: Bearer <token>'
+```
