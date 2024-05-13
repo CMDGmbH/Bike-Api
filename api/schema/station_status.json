@@ -1,0 +1,68 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "description": "Beschreibung der Kapazitäten und der Auslastung des Systems",
+    "type": "object",
+    "properties": {
+        "last_updated": {
+            "description": "Zeitpunkt der letzten Aktualisierung",
+            "type": "string",
+            "format": "ISO 8601"
+        },
+        "ttl": {
+            "description": "Zeit in Sekunden, bis die Daten als veraltet betrachtet werden",
+            "type": "integer"
+        },
+        "version": {
+            "description": "Version der API in SemVer-Notation",
+            "type": "string",
+            "format": "MAJOR.MINOR.PATCH"
+        },
+        "data": {
+            "description": "Array das ein Objekt pro Station enthält",
+            "type": "object",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "station_id": {
+                        "description": "ID der Station",
+                        "type": "string"
+                    },
+                    "num_bike_capacity_available": {
+                        "description": "Anzahl der verfügbaren Fahrradstellplätze",
+                        "type": "integer"
+                    },
+                    "is_installed": {
+                        "description": "Gibt an, ob die Station fest installiert ist",
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "description": "Status der Station",
+                        "type": "string",
+                        "enum": [
+                            "enabled",
+                            "disabled"
+                        ]
+                    },
+                    "last_reported": {
+                        "description": "Zeitpunkt der letzten Meldung",
+                        "type": "string",
+                        "format": "ISO 8601"
+                    }
+                },
+                "required": [
+                    "station_id",
+                    "num_bike_capacity_available",
+                    "is_installed",
+                    "status",
+                    "last_reported"
+                ]
+            }
+        }
+    },
+    "required": [
+        "last_updated",
+        "ttl",
+        "version",
+        "data"
+    ]
+}

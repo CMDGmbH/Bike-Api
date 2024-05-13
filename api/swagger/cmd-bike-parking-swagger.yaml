@@ -1,0 +1,369 @@
+openapi: 3.0.1 
+info:
+  title: Connected Mobility Düsseldorf GmbH - REST-API
+  description: Endpunkt und Schemabeschreibung der REST-API der Connected Mobility Düsseldorf für die Fahrrad-Stationen der Connected Mobiltiy Düsseldorf und der B+R Stationen der Rheinbahn AG.
+  version: 1.0.0
+  
+servers:
+  - url: https:/api.cmd.nrw/api/cmd-bike-parking/v1/de
+  - url: http:/localhost:3000/api/cmd-bike-parking/v1/de
+tags:
+  - name: operators
+    description: Informationen über die Betreiber der Stationen
+  - name: stations
+    description: Informationen über die Stationen
+  - name: station_status
+    description: Informationen über die Stationen
+  - name: system
+    description: Informationen über das System
+  - name: system_regions
+    description: Informationen über die Regionen in den Stationen betrieben werden
+paths:
+  /operators:
+    get:
+      tags:
+        - operators
+      summary: Liste aller Betreiber der Stationen
+      description: Liste aller Betreiber und Metainformationen 
+      responses:
+        '200':
+          description: Authentifizierung erfolgreich
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/operators'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+          
+        '404':
+          description: Keine Daten gefunden
+  /stations:
+    get:
+      tags:
+        - stations
+      summary: Liste aller Stationen
+      description: Liste aller Stationen und deren Informationen
+      responses:
+        '200':
+          description: Authentifizierung erfolgreich
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/stations'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+          
+        '404':
+          description: Keine Daten gefunden
+  /station_status:
+    get:
+      tags:
+        - station_status
+      summary: Liste aller Stationen und deren Status
+      description: Liste aller Stationen Status und frei verfügbare Kapazität
+      responses:
+        '200':
+          description: Authentifizierung erfolgreich
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/station_status'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+          
+        '404':
+          description: Keine Daten gefunden
+  /system:
+    get:
+      tags:
+        - system
+      summary: Informationen über das System
+      description: Metainformationen über das System
+      responses:
+        '200':
+          description: Authentifizierung erfolgreich
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/system'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+          
+        '404':
+          description: Keine Daten gefunden
+  /system_regions:
+    get:
+      tags:
+        - system_regions
+      summary: Beschreibung der Regionen
+      description: Beschreibung der Regionen
+      responses:
+        '200':
+          description: Authentifizierung erfolgreich
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/system_regions'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+          
+        '404':
+          description: Keine Daten gefunden
+components:
+  schemas:
+    operators:
+      type: object
+      properties:
+        last_updated:
+          type: string
+          format: "ISO 8601"
+          example: "2024-03-21T14:15:46+01:00"
+        ttl:
+          type: integer
+          example: 60
+        version:
+          type: string
+          example: "1.0.0"
+        data:
+          type: object
+          properties:
+            operators:
+              type: array
+              items:
+                type: object
+                properties:
+                  operator_id:
+                    type: string
+                    example: "d0df0161-e144-4dd3-a164-91f99b09e224"
+                  operator_:
+                    type: string
+                    example: "Connected Mobility Düsseldorf GmbH"
+                  operator_url:
+                    type: string
+                    example: "https://www.cmd.nrw/"
+    stations:
+      type: object
+      properties:
+        last_updated:
+          type: string
+          format: "ISO 8601"
+          example: "2024-03-21T14:15:46+01:00"
+        ttl:
+          type: integer
+          example: 60
+        version:
+          type: string
+          example: "1.0.0"
+        data:
+          type: object
+          properties:
+            stations:
+              type: array
+              items:
+                type: object
+                properties:
+                  staton_id:
+                    type: string
+                    example: "62f1138fe1745746387f83f0"
+                  name:
+                    type: string
+                    example: "Stadttor"
+                  lon:
+                    type: number
+                    example: 6.762219054002
+                  lat:
+                    type: number
+                    example: 51.215576653318
+                  address:
+                    type: string
+                    example: "Lahnweg 10"
+                  region_id: 
+                    type: string
+                    example: "50"
+                  capacity:
+                    type: integer
+                    example: 8
+                  operator_id:
+                    type: string
+                    example: "d0df0161-e144-4dd3-a164-91f99b09e224"
+                  type:
+                    type: string
+                    enum: ["Multiport", "Garage (BikTec)"]
+                    example: "Multiport"
+                  opening_hours:
+                    type: string
+                    enum: ["24/7"]
+                    example: "24/7"
+                  rental_apps:
+                    type: object
+                    properties:
+                      android:
+                        type: string
+                        format: uri
+                        example: "https://play.google.com/store/apps/details?id=com.mobilitaetstation.fahrradstation"
+                      ios:
+                        type: string
+                        format: uri
+                        example: "https://apps.apple.com/de/app/fahrradstation-d%C3%BCsseldorf/id1632919285?ign-itscg=30200&ign-itsct=apps_box_link"
+                  prcing_plans:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        pricing_plan_id:
+                          type: string
+                          example: "63454eb7960ce573246aba53"
+                        name: 
+                          type: string
+                          example: "Tages-Ticket"
+                        price:
+                          type: number
+                          example: 1
+                        currency:
+                          type: string
+                          format: "ISO 4217"
+                          enum: ["EUR"]
+                          example: "EUR"
+                        description:
+                          type: string
+                          example: "24 Stunden-Ticket, gültig ab Buchungstart für 24 Stunden"
+    station_status:
+      type: object
+      properties:
+        last_updated:
+          type: string
+          format: "ISO 8601"
+          example: "2024-03-21T14:15:46+01:00"
+        ttl:
+          type: integer
+          example: 60
+        version:
+          type: string
+          example: "1.0.0"
+        data:
+          type: object
+          properties:
+            station_id:
+              type: string
+              example: "62f1138fe1745746387f83f0"
+            num_bike_capacity_available:
+              type: integer
+              example: 4
+            is_installed:
+              type: boolean
+              example: true
+            status:
+              type: string
+              enum: ["enabled", "disabled"]
+              example: "enabled"
+            last_reported:
+              type: string
+              format: "ISO 8601"
+              example: "2024-03-21T14:15:46+01:00"
+    system:
+      type: object
+      properties:
+        last_updated:
+          type: string
+          format: "ISO 8601"
+          example: "2024-03-21T14:15:46+01:00"
+        ttl:
+          type: integer
+          example: 60
+        version:
+          type: string
+          example: "1.0.0"
+        data:
+          type: object
+          properties:
+            system_id:
+              type: string
+              example: "53afbbbc-b442-4594-b5d1-a3e42cfdb832 "
+            language:
+              type: string
+              enum: ["de", "en"]
+              example: "de"
+            name:
+              type: string
+              example: "cmd_bicycleparking"
+            email:
+              type: string
+              example: "info@cmd.nrw"
+            system_operator:
+              type: string
+              example: "Connected Mobility Düsseldorf GmbH"
+            feed_contact_email:
+              type: string
+              example: "info@cmd.nrw"
+            timezone:
+              type: string
+              enum: ["Europe/Berlin"]
+              example: "Europe/Berlin"
+            license_url:
+              type: string
+              format: uri
+              example: "https://creativecommons.org/licenses/by-nc/4.0/"
+            terms_urls:
+              type: array
+              items:
+                type: object
+                properties:
+                    operator_name:
+                      type: string
+                      example: "Connected Mobility Düsseldorf GmbH"
+                    terms_url:
+                      type: string
+                      format: uri
+                      example: "https://maas.mobilitaetstation.com/de/agb.html"
+            privacy_policy_urls:
+              type: array
+              items:
+                type: object
+                properties:
+                    operator_name:
+                      type: string
+                      example: "Connected Mobility Düsseldorf GmbH"
+                    terms_url:
+                      type: string
+                      format: uri
+                      example: "https://maas.mobilitaetstation.com/de/privacy.html"
+    system_regions:
+      type: object
+      properties:
+        last_updated:
+          type: string
+          format: "ISO 8601"
+          example: "2024-03-21T14:15:46+01:00"
+        ttl:
+          type: integer
+          example: 60
+        version:
+          type: string
+          example: "1.0.0"
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              region_id:
+                type: string
+                example: "50"
+              region_name:
+                type: string
+                example: "Düsseldorf"
+  requestBodies:
+    operator:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/operators'
+  responses:
+    UnauthorizedError:
+      description: JWT Token exisitiert nicht oder ist ungültig
+  securitySchemes:
+    bearerAuth:           
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

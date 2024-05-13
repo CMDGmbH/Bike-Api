@@ -1,0 +1,154 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "description": "Liste aller Stationen, deren Kapazität und Standort",
+    "type": "object",
+    "properties": {
+        "last_updated": {
+            "description": "Zeitpunkt der letzten Aktualisierung",
+            "type": "string",
+            "format": "ISO 8601"
+        },
+        "ttl": {
+            "description": "Zeit in Sekunden, nach der die Daten als veraltet gelten",
+            "type": "integer"
+        },
+        "version": {
+            "description": "Version der API in SemVer-Notation",
+            "type": "string",
+            "format": "MAJOR.MINOR.PATCH"
+        },
+        "data": {
+            "description": "Array von Stationen, wo eine Station ein Objekt ist",
+            "type": "object",
+            "properties": {
+                "stations": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "station_id": {
+                                "description": "Eindeutige ID der Station",
+                                "type": "string"
+                            },
+                            "name": {
+                                "description": "Name der Station",
+                                "type": "string"
+                            },
+                            "lon": {
+                                "description": "Längengrad der Station",
+                                "type": "number"
+                            },
+                            "lat": {
+                                "description": "Breitengrad der Station",
+                                "type": "number"
+                            },
+                            "region_id": {
+                                "description": "ID der Region, in der die Station liegt",
+                                "type": "string"
+                            },
+                            "capacity": {
+                                "description": "Kapazität der Station",
+                                "type": "integer"
+                            },
+                            "operator_id": {
+                                "description": "ID des Betreibers der Station",
+                                "type": "string"
+                            },
+                            "type": {
+                                "description": "Typ der Station",
+                                "type": "string",
+                                "enum": [
+                                    "Multiport",
+                                    "Garage (BikTec)"
+                                ]
+                            },
+                            "operning_hours": {
+                                "description": "Öffnungszeiten der Station",
+                                "type": "string",
+                                "enum": [
+                                    "24/7"
+                                ]
+                            },
+                            "rental_apps": {
+                                "description": "Apps, über die die Plätze in der Station gemietet werden können",
+                                "type": "object",
+                                "properties": {
+                                    "android": {
+                                        "description": "URI zum Download der Android-App",
+                                        "type": "string",
+                                        "format": "uri"
+                                    },
+                                    "ios": {
+                                        "description": "URI zum Download der iOS-App",
+                                        "type": "string",
+                                        "format": "uri"
+                                    }
+                                }
+                            },
+                            "pricing_plans": {
+                                "description": "Array von Preismodellen, wo ein Preismodell ein Objekt ist",
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "pricing_plan_id": {
+                                            "description": "Eindeutige ID des Preismodells",
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "description": "Name des Preismodells",
+                                            "type": "string"
+                                        },
+                                        "price": {
+                                            "description": "Preis des Preismodells",
+                                            "type": "number"
+                                        },
+                                        "currency": {
+                                            "description": "Währung des Preises",
+                                            "type": "string",
+                                            "format": "ISO 4217",
+                                            "enum": [
+                                                "EUR"
+                                            ]
+                                        },
+                                        "description": {
+                                            "description": "Beschreibung des Preismodells",
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "pricing_plan_id",
+                                    "name",
+                                    "price",
+                                    "currency",
+                                    "description"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "station_id",
+                            "name",
+                            "lon",
+                            "lat",
+                            "address",
+                            "region_id",
+                            "capacity",
+                            "operator_id",
+                            "type",
+                            "opening_hours",
+                            "rental_apps",
+                            "pricing_plans"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "last_updated",
+        "ttl",
+        "version",
+        "data"
+    ]
+}

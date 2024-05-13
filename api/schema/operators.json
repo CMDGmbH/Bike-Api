@@ -1,0 +1,56 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "description": "Beschreibung der Betreiber der Stationen",
+    "type": "object",
+    "properties": {
+        "last_updated": {
+            "description": "Zeitpunkt der letzten Aktualisierung",
+            "type": "string",
+            "format": "ISO 8601"
+        },
+        "ttl": {
+            "description": "Zeit in Sekunden bis die Daten als veraltet gelten",
+            "type": "integer"
+        },
+        "version": {
+            "description": "Version der API in SemVer-Notation",
+            "type": "string",
+            "format": "MAJOR.MINOR.PATCH"
+        },
+        "data": {
+            "description": "Datend der Betreiber in Key-Value-Paaren",
+            "type": "object",
+            "operators": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "operator_id": {
+                            "description": "ID des Betreibers",
+                            "type": "string"
+                        },
+                        "operator_name": {
+                            "description": "Name des Betreibers",
+                            "type": "string"
+                        },
+                        "operator_url": {
+                            "description": "URL zur Webseite Betreibers",
+                            "type": "string",
+                            "format": "uri"
+                        }
+                    },
+                    "required": [
+                        "operator_id",
+                        "name"
+                    ]
+                }
+            }
+        }
+    },
+    "required": [
+        "last_update",
+        "ttl",
+        "version",
+        "data"
+    ]
+}

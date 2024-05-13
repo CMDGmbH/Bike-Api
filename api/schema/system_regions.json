@@ -1,0 +1,48 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "description": "Beschreibung der Regionen",
+    "type": "object",
+    "properties": {
+        "last_updated": {
+            "description": "Zeitpunkt der letzten Aktualisierung",
+            "type": "string",
+            "format": "ISO 8601"
+        },
+        "ttl": {
+            "description": "Zeit in Sekunden, bis die Daten als veraltet betrachtet werden",
+            "type": "integer"
+        },
+        "version": {
+            "description": "Version der API in Sem-Ver Notation",
+            "type": "string",
+            "format": "MAJOR.MINOR.PATCH"
+        },
+        "data": {
+            "description": "Beschreibung einer Region durch Name und ID",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "region_id": {
+                        "description": "ID der Region",
+                        "type": "integer"
+                    },
+                    "region_name": {
+                        "description": "Name der Region",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "region_id",
+                    "region_name"
+                ]
+            }
+        }    
+    },
+    "required": [
+        "last_updated",
+        "ttl",
+        "version",
+        "data"
+    ]
+}

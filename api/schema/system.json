@@ -1,0 +1,125 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "description": "Beschreibung der Details des System Operators",
+    "type": "object",
+    "properties": {
+        "last_updated": {
+            "description": "Zeitpunkt der letzten Aktualisierung",
+            "type": "string",
+            "format": "ISO 8601"
+        },
+        "ttl": {
+            "description": "Zeit in Sekunden, bis die Daten als veraltet betrachtet werden",
+            "type": "integer"
+        },
+        "version": {
+            "description": "Version der API in SemVer-Notation",
+            "type": "string",
+            "format": "MAJOR.MINOR.PATCH"
+        },
+        "data": {
+            "description": "Response der Daten in Form von Key-Value Paaren",
+            "type": "object",
+            "properties": {
+                "system_id": {
+                    "description": "Eindeutige ID des System Operators",
+                    "type": "string"
+                },
+                "language": {
+                    "description": "Sprache in der das System betrieben wird",
+                    "type": "string",
+                    "enum": [
+                        "de",
+                        "en"
+                    ]
+                },
+                "name": {
+                    "description": "Name des System",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "E-Mail Adresse des System Operators",
+                    "type": "string"
+                },
+                "system_operator": {
+                    "description": "Name des System Operators",
+                    "type": "string"
+                },
+                "feed_contact_email": {
+                    "description": "E-Mail Adresse des Operators für technische Anfragen",
+                    "type": "string"
+                },
+                "timezone": {
+                    "description": "Zeitzone in der das System betrieben wird",
+                    "type": "string",
+                    "enum": [
+                        "Europe/Berlin"
+                    ]
+                },
+                "licence_url": {
+                    "description": "URL zur Lizenz des Systems",
+                    "type": "string"
+                },
+                "terms_urls": {
+                    "type": "array",
+                    "items": {
+                        "properties": {
+                            "operator_name": {
+                                "type": "string",
+                                "description": "Name des Betreibers"
+                            },
+                            "terms_url:" :{
+                                "description": "URL zu den Nutzungsbedingungen des Services",
+                                "type": "string",
+                                "format": "uri"
+                            }
+                        },
+                        "required": [
+                            "operator_name",
+                            "terms_url"
+                        ]
+                    }
+                },
+                "privacy_policy_urls": {
+                    "type": "array",
+                    "items": {
+                        "properties": {
+                            "operator_name": {
+                                "type": "string",
+                                "description": "Name des Betreibers"
+                            },
+                            "terms_url:" :{
+                                "description": "URL zu den AGBs dess Services",
+                                "type": "string",
+                                "format": "uri"
+                            }
+                        },
+                        "required": [
+                            "operator_name",
+                            "terms_url"
+                        ]
+                    }
+                }
+            },
+            "required": [
+                "system_id",
+                "language",
+                "name",
+                "email",
+                "system_operator",
+                "feed_contact_email",
+                "timezone",
+                "licence_url",
+                "terms_url",
+                "terms_last_updated",
+                "privacy_policy_url"
+            ]
+        }
+    },
+    "required": [
+        "last_updated",
+        "ttl",
+        "version",
+        "data"
+    ]
+}
