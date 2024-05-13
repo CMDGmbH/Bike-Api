@@ -6,7 +6,7 @@ Ein JWT-geschützter GBFS-Feed für den Lastenrad-Verleih der
 Connected Mobility Düsseldorf GmbH. Der GBFS-Feed wird in der aktuellen 
 Version 2.3 bereitgestellt. (Stand: 25.03.2024)
 
-Ein JWT-geschützte REST-API für die FahrradStationen und B+R Stationen der 
+Eine JWT-geschützte REST-API für die FahrradStationen und B+R Stationen der 
 Connected Mobility Düsseldorf GmbH. Die API wird in der aktuellen Version 1.0
 bereitgestellt.
 
