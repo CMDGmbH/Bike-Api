@@ -54,7 +54,7 @@
                                 "description": "ID des Betreibers der Station",
                                 "type": "string"
                             },
-                            "type": {
+                            "station_type": {
                                 "description": "Typ der Station",
                                 "type": "string",
                                 "enum": [
@@ -103,6 +103,10 @@
                                             "description": "Preis des Preismodells",
                                             "type": "number"
                                         },
+                                        "duration": {
+                                            "description": "Dauer, des Tickets in Sekunden",
+                                            "type": "integer"
+                                        },
                                         "currency": {
                                             "description": "Währung des Preises",
                                             "type": "string",
@@ -135,7 +139,7 @@
                             "region_id",
                             "capacity",
                             "operator_id",
-                            "type",
+                            "station_type",
                             "opening_hours",
                             "rental_apps",
                             "pricing_plans"

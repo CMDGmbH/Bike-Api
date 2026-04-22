@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Connected Mobility Düsseldorf GmbH - REST-API
   description: Endpunkt und Schemabeschreibung der REST-API der Connected Mobility Düsseldorf für die Fahrrad-Stationen der Connected Mobiltiy Düsseldorf und der B+R Stationen der Rheinbahn AG.
-  version: 1.0.0
+  version: 1.1.0
   
 servers:
   - url: https:/api.cmd.nrw/api/cmd-bike-parking/v1/de
@@ -113,6 +113,11 @@ components:
   schemas:
     operators:
       type: object
+      required:
+        - last_updated
+        - ttl
+        - version
+        - data
       properties:
         last_updated:
           type: string
@@ -123,7 +128,7 @@ components:
           example: 60
         version:
           type: string
-          example: "1.0.0"
+          example: "1.1.0"
         data:
           type: object
           properties:
@@ -131,18 +136,44 @@ components:
               type: array
               items:
                 type: object
+                required:
+                  - operator_id
+                  - operator_name
                 properties:
                   operator_id:
                     type: string
                     example: "d0df0161-e144-4dd3-a164-91f99b09e224"
-                  operator_:
+                  operator_name:
                     type: string
                     example: "Connected Mobility Düsseldorf GmbH"
                   operator_url:
                     type: string
                     example: "https://www.cmd.nrw/"
+                  operator_email:
+                    type: string
+                    format: email
+                    example: "support@cmd.nrw"
+                  operator_rental_apps:
+                    type: object
+                    required:
+                      - android
+                      - ios
+                    properties:
+                      android:
+                        type: string
+                        format: uri
+                        example: "https://play.google.com/store/apps/details?id=com.mobilitaetstation.fahrradstation"
+                      ios:
+                        type: string
+                        format: uri
+                        example: "https://apps.apple.com/de/app/fahrradstation-d%C3%BCsseldorf/id1632919285?ign-itscg=30200&ign-itsct=apps_box_link"
     stations:
       type: object
+      required:
+        - last_updated
+        - ttl
+        - version
+        - data
       properties:
         last_updated:
           type: string
@@ -153,7 +184,7 @@ components:
           example: 60
         version:
           type: string
-          example: "1.0.0"
+          example: "1.1.0"
         data:
           type: object
           properties:
@@ -161,6 +192,19 @@ components:
               type: array
               items:
                 type: object
+                required:
+                  - station_id
+                  - name
+                  - lon
+                  - lat
+                  - address
+                  - region_id
+                  - capacity
+                  - operator_id
+                  - station_type
+                  - opening_hours
+                  - rental_apps
+                  - prcing_plans
                 properties:
                   staton_id:
                     type: string
@@ -186,7 +230,7 @@ components:
                   operator_id:
                     type: string
                     example: "d0df0161-e144-4dd3-a164-91f99b09e224"
-                  type:
+                  station_type:
                     type: string
                     enum: ["Multiport", "Garage (BikTec)"]
                     example: "Multiport"
@@ -196,6 +240,9 @@ components:
                     example: "24/7"
                   rental_apps:
                     type: object
+                    required:
+                      - android
+                      - ios
                     properties:
                       android:
                         type: string
@@ -209,6 +256,12 @@ components:
                     type: array
                     items:
                       type: object
+                      required:
+                        - pricing_plan_id
+                        - name
+                        - price
+                        - currency
+                        - description
                       properties:
                         pricing_plan_id:
                           type: string
@@ -216,6 +269,9 @@ components:
                         name: 
                           type: string
                           example: "Tages-Ticket"
+                        duration:
+                          type: integer
+                          example: 86400
                         price:
                           type: number
                           example: 1
@@ -229,6 +285,11 @@ components:
                           example: "24 Stunden-Ticket, gültig ab Buchungstart für 24 Stunden"
     station_status:
       type: object
+      required:
+        - last_updated
+        - ttl
+        - version
+        - data
       properties:
         last_updated:
           type: string
@@ -239,29 +300,45 @@ components:
           example: 60
         version:
           type: string
-          example: "1.0.0"
+          example: "1.1.0"
         data:
-          type: object
+          type: object 
           properties:
-            station_id:
-              type: string
-              example: "62f1138fe1745746387f83f0"
-            num_bike_capacity_available:
-              type: integer
-              example: 4
-            is_installed:
-              type: boolean
-              example: true
-            status:
-              type: string
-              enum: ["enabled", "disabled"]
-              example: "enabled"
-            last_reported:
-              type: string
-              format: "ISO 8601"
-              example: "2024-03-21T14:15:46+01:00"
+            stations:
+              type: array
+              items:
+                type: object
+                required:
+                  - station_id
+                  - num_bike_capacity_available
+                  - is_installed
+                  - status
+                  - last_reported
+                properties:
+                  station_id:
+                    type: string
+                    example: "62f1138fe1745746387f83f0"
+                  num_bike_capacity_available:
+                    type: integer
+                    example: 4
+                  is_installed:
+                    type: boolean
+                    example: true
+                  status:
+                    type: string
+                    enum: ["enabled", "disabled"]
+                    example: "enabled"
+                  last_reported:
+                    type: string
+                    format: "ISO 8601"
+                    example: "2024-03-21T14:15:46+01:00"
     system:
       type: object
+      required:
+        - last_updated
+        - ttl
+        - version
+        - data
       properties:
         last_updated:
           type: string
@@ -272,9 +349,20 @@ components:
           example: 60
         version:
           type: string
-          example: "1.0.0"
+          example: "1.1.0"
         data:
           type: object
+          required:
+            - system_id
+            - language
+            - name
+            - email
+            - system_operator
+            - feed_contact_email
+            - timezone
+            - license_url
+            - terms_urls
+            - privacy_policy_urls
           properties:
             system_id:
               type: string
@@ -307,6 +395,9 @@ components:
               type: array
               items:
                 type: object
+                required:
+                  - operator_name
+                  - terms_url
                 properties:
                     operator_name:
                       type: string
@@ -319,6 +410,9 @@ components:
               type: array
               items:
                 type: object
+                required:
+                  - operator_name
+                  - terms_url
                 properties:
                     operator_name:
                       type: string
@@ -329,6 +423,11 @@ components:
                       example: "https://maas.mobilitaetstation.com/de/privacy.html"
     system_regions:
       type: object
+      required:
+        - last_updated
+        - ttl
+        - version
+        - data
       properties:
         last_updated:
           type: string
@@ -339,11 +438,14 @@ components:
           example: 60
         version:
           type: string
-          example: "1.0.0"
+          example: "1.1.0"
         data:
           type: array
           items:
             type: object
+            required:
+              - region_id
+              - region_name
             properties:
               region_id:
                 type: string
@@ -351,12 +453,6 @@ components:
               region_name:
                 type: string
                 example: "Düsseldorf"
-  requestBodies:
-    operator:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/operators'
   responses:
     UnauthorizedError:
       description: JWT Token exisitiert nicht oder ist ungültig

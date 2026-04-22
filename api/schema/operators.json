@@ -37,11 +37,32 @@
                             "description": "URL zur Webseite Betreibers",
                             "type": "string",
                             "format": "uri"
+                        },
+                        "operator_email:": {
+                            "description": "E-Mail-Adresse des Betreibers",
+                            "type": "string",
+                            "format": "email"
+                        },
+                        "operator_rental_apps": {
+                            "description": "Apps, über die die Plätze in der Station gemietet werden können",
+                            "type": "object",
+                            "properties": {
+                                "android": {
+                                    "description": "URI zum Download der Android-App",
+                                    "type": "string",
+                                    "format": "uri"
+                                },
+                                "ios": {
+                                    "description": "URI zum Download der iOS-App",
+                                    "type": "string",
+                                    "format": "uri"
+                                }
+                            }
                         }
                     },
                     "required": [
                         "operator_id",
-                        "name"
+                        "operator_name"
                     ]
                 }
             }
