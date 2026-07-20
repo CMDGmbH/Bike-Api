@@ -362,7 +362,7 @@ components:
             - timezone
             - license_url
             - terms_urls
-            - privacy_policy_urls
+            - privacy_urls
           properties:
             system_id:
               type: string
@@ -406,7 +406,7 @@ components:
                       type: string
                       format: uri
                       example: "https://maas.mobilitaetstation.com/de/agb.html"
-            privacy_policy_urls:
+            privacy_urls:
               type: array
               items:
                 type: object

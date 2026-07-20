@@ -80,7 +80,7 @@
                         ]
                     }
                 },
-                "privacy_policy_urls": {
+                "privacy_urls": {
                     "type": "array",
                     "items": {
                         "properties": {
@@ -112,7 +112,7 @@
                 "licence_url",
                 "terms_url",
                 "terms_last_updated",
-                "privacy_policy_url"
+                "privacy_urls"
             ]
         }
     },
